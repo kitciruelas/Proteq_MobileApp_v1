@@ -77,17 +77,8 @@ class _EvacuationCentersScreenState extends State<EvacuationCentersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FA),
-      appBar: AppBar(
-        title: const Text('Evacuation Centers', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.red,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-          tooltip: 'Back',
-        ),
-      ),
+   
+  
       body: SlidingUpPanel(
         controller: _panelController,
         minHeight: MediaQuery.of(context).size.height * 0.25,

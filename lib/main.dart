@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'login_screens/splash_screen.dart';
 import 'screens/dashboard.dart';
 import 'screens/report_incident.dart';
 import 'screens/welfare_check.dart';
 import 'screens/safety_protocols.dart';
 import 'screens/evacuation_centers.dart';
-
+import 'responders_screen/r_dashboard.dart';
 
 void main() {
   runApp(const ProteqApp());
 }
-
 
 class ProteqApp extends StatelessWidget {
   const ProteqApp({super.key});
@@ -18,7 +18,9 @@ class ProteqApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PROTEQ',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Roboto',
         primarySwatch: Colors.red,
         scaffoldBackgroundColor: Colors.grey[50],
         inputDecorationTheme: InputDecorationTheme(
@@ -45,54 +47,121 @@ class ProteqApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/',
+      home: const SplashScreen(),
       routes: {
-        '/': (context) => const SplashScreen(),
-        '/dashboard': (context) => const DashboardScreen(),
-        '/report': (context) => const ReportIncidentScreen(),
-        '/welfare': (context) => const WelfareCheckScreen(),
+        '/mode_selection': (context) => const ModeSelectionScreen(),
+        '/user_dashboard': (context) => const DashboardScreen(),
+        '/responder_dashboard': (context) => const ResponderDashboardScreen(),
+        '/report': (context) => ReportIncidentScreen(key: const ValueKey('route_report_incident')),
+        '/welfare': (context) => WelfareCheckScreen(key: const ValueKey('route_welfare_check')),
         '/protocols': (context) => const SafetyProtocolsScreen(),
         '/evacuation': (context) => const EvacuationCentersScreen(),
-
       },
     );
   }
 }
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+class ModeSelectionScreen extends StatelessWidget {
+  const ModeSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, '/dashboard');
-    });
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.red, Colors.white],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.8),
-                  shape: BoxShape.circle,
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 16)],
-                ),
-                padding: const EdgeInsets.all(32),
-                child: Icon(Icons.shield, size: 100, color: Colors.red),
+      appBar: AppBar(
+        title: const Text('PROTEQ'),
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Select Your Mode',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.red,
               ),
-              const SizedBox(height: 32),
-              const Text('PROTEQ', style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.red)),
-            ],
-          ),
+            ),
+            const SizedBox(height: 40),
+            // User Mode Button
+            Container(
+              width: double.infinity,
+              height: 120,
+              margin: const EdgeInsets.only(bottom: 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/user_dashboard');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: const BorderSide(color: Colors.red, width: 2),
+                  ),
+                  elevation: 4,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.person, size: 40),
+                    SizedBox(height: 8),
+                    Text(
+                      'User Mode',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Report incidents and check safety',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Responder Mode Button
+            Container(
+              width: double.infinity,
+              height: 120,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/responder_dashboard');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 4,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.security, size: 40),
+                    SizedBox(height: 8),
+                    Text(
+                      'Responder Mode',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Manage incidents and respond',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

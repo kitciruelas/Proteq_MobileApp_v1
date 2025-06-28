@@ -77,16 +77,8 @@ class _SafetyProtocolsScreenState extends State<SafetyProtocolsScreen> {
     }).toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FA),
-      appBar: AppBar(
-        title: const Text('Safety Protocols', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.red,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+   
+    
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

@@ -64,15 +64,6 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
   Widget build(BuildContext context) {
     const primaryRed = Colors.red;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Report an Incident', style: TextStyle(color: Colors.white)),
-        backgroundColor: primaryRed,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(

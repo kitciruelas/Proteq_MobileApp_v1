@@ -26,15 +26,7 @@ class _WelfareCheckScreenState extends State<WelfareCheckScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Welfare Check Request', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.red,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+ 
       backgroundColor: Colors.grey[50],
       body: Expanded(
         child: SingleChildScrollView(

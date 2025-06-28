@@ -1,0 +1,54 @@
+RewriteEngine On
+
+# Handle CORS preflight requests
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
+
+# API routing
+RewriteRule ^api/users/([^/]+)/?$ api/users.php [QSA,L]
+RewriteRule ^api/users/?$ api/users.php [QSA,L]
+
+RewriteRule ^api/incidents/([^/]+)/?$ api/incidents.php [QSA,L]
+RewriteRule ^api/incidents/?$ api/incidents.php [QSA,L]
+
+RewriteRule ^api/evacuation-centers/([^/]+)/?$ api/evacuation_centers.php [QSA,L]
+RewriteRule ^api/evacuation-centers/?$ api/evacuation_centers.php [QSA,L]
+
+RewriteRule ^api/safety-protocols/([^/]+)/?$ api/safety_protocols.php [QSA,L]
+RewriteRule ^api/safety-protocols/?$ api/safety_protocols.php [QSA,L]
+
+RewriteRule ^api/welfare-checks/([^/]+)/?$ api/welfare_checks.php [QSA,L]
+RewriteRule ^api/welfare-checks/?$ api/welfare_checks.php [QSA,L]
+
+RewriteRule ^api/alerts/([^/]+)/?$ api/alerts.php [QSA,L]
+RewriteRule ^api/alerts/?$ api/alerts.php [QSA,L]
+
+RewriteRule ^api/emergencies/([^/]+)/?$ api/emergencies.php [QSA,L]
+RewriteRule ^api/emergencies/?$ api/emergencies.php [QSA,L]
+
+# Security headers
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# CORS headers
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+Header always set Access-Control-Max-Age "3600"
+
+# Prevent access to sensitive files
+<Files "*.sql">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "database.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Error handling
+ErrorDocument 404 /api/error/404
+ErrorDocument 500 /api/error/500 

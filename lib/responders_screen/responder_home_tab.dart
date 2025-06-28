@@ -1,29 +1,10 @@
 import 'package:flutter/material.dart';
-import 'report_incident.dart';
-import 'welfare_check.dart';
-import 'evacuation_centers.dart';
-import 'safety_protocols.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class ResponderHomeTab extends StatelessWidget {
+  const ResponderHomeTab({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
-}
-
-class _DashboardScreenState extends State<DashboardScreen> {
-  bool _showAlert = true;
-  int _selectedIndex = 0;
-
-  static const List<String> _titles = [
-    'Home',
-    'Report Incident',
-    'Welfare Check',
-    'Evacuation Centers',
-    'Safety Protocols',
-  ];
-
-  Widget _buildHomeTab() {
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,8 +25,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text('Welcome, Users', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                      Text('Student', style: TextStyle(color: Colors.grey, fontSize: 14)),
+                      Text('Welcome, Responder', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      Text('Emergency Responder', style: TextStyle(color: Colors.grey, fontSize: 14)),
                     ],
                   ),
                 ),
@@ -253,129 +234,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           const SizedBox(height: 24),
         ],
-      ),
-    );
-  }
-
-  Widget _buildResponderButton({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      elevation: 2,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              CircleAvatar(
-                backgroundColor: color.withOpacity(0.1),
-                radius: 24,
-                child: Icon(icon, color: color, size: 28),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                subtitle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey[600],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _getScreen(int index) {
-    switch (index) {
-      case 0:
-        return _buildHomeTab();
-      case 1:
-        return ReportIncidentScreen(key: ValueKey('dashboard_report_incident_$index'));
-      case 2:
-        return WelfareCheckScreen(key: ValueKey('dashboard_welfare_check_$index'));
-      case 3:
-        return EvacuationCentersScreen(key: ValueKey('dashboard_evacuation_centers_$index'));
-      case 4:
-        return SafetyProtocolsScreen(key: ValueKey('dashboard_safety_protocols_$index'));
-      default:
-        return _buildHomeTab();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: _getScreen(_selectedIndex),
-      ),
-      floatingActionButton: _selectedIndex == 0
-          ? FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: Colors.green,
-              child: const Icon(Icons.add),
-            )
-          : null,
-      bottomNavigationBar: SafeArea(
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          selectedFontSize: 14,
-          unselectedFontSize: 12,
-          selectedItemColor: Colors.red,
-          unselectedItemColor: Colors.grey,
-          items: [
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              tooltip: 'Home',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.report),
-              label: 'Report',
-              tooltip: 'Report Incident',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              label: 'Welfare',
-              tooltip: 'Welfare Check',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.info),
-              label: 'Evacuation',
-              tooltip: 'Evacuation Centers',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.security),
-              label: 'Safety',
-              tooltip: 'Safety Protocols',
-            ),
-          ],
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-        ),
       ),
     );
   }
